@@ -1,88 +1,68 @@
 var currentState = 0;
-var states = ["home", "pick", "add numbers", "subtract numbers", "symbol", "final"];
-var insertSymbols = [ '!', '@', '#', '$', '%', '^', '&', '*', '{', '_', '+', '=', '>', '<'];
-var insertNumbers = [];
-var bT = document.querySelector('bigtext');
-var next = document.getElementById('next');
-var sT = document.querySelector('#smalltext');
-var r = document.getElementById('reset');
+var states = ['home', 'page1', 'page2', 'page3', 'page4'];
+var symbols = ['!', '@', '#', '$', '%', '^', '&'];
 
+resetButton = document.getElementById('resetButton');
+resetButton.addEventListener('click', resetState);
+document.getElementById('resetButton').style.display = 'none';
+var randomsymbols9;
+nextButton = document.getElementById('nextButton');
+nextButton.addEventListener('click', changeState);
 
-//add click listener to button for function to run
-
-reset.addEventListener('click', resetState());
-
-
-// putting click listener to "next" 
-
-next.addEventListener('click', changeState(renderState));
-
-
-var myState = states[currentState];
-console.log(currentState); 
-
-function currentState() {
+function resetState() {
     currentState = 0;
     renderState();
 }
 
 function changeState() {
     currentState++;
-    renderState(+1);
+    renderState();
 }
 
-console.log(states[currentState]);
 function renderState() {
 
-    switch(states[currentState]) {
+    switch(currentState) {
+        case 'home':
+            document.getElementById('nextButton').style.display = 'inital';
+            document.getElementById('pText').innerHTML ='Pick a number between 01-99';
+            document.getElementById('nextButton').innerHTML = 'Next';
+            document.getElementById('resetButton').style.display = 'none';
+            document.getElementById('resetButton').innerHTML = 'Reset';
+            document.getElementById('smallText').innerHTML = 'When you have chosen a number, click next.';
+            break;
 
-        case "home":
-            bigtext.textContent = "I can read your mind";
-            next.style.visibility = 'visible';
-            r.textContent = "GO";
+        case 'page1':
+            document.getElementById('resetButton').style.display = 'initial';
+            document.getElementById('pText').innerHTML = 'Add both digits together to get a new number';
+            document.getElementById('smallText').innerHTML = 'Example: 21 is 2 + 1 = 3';
+            break;
+
+        case 'page2':
+            document.getElementById('pText').innerHTML = 'Subtract your new number from the original number';
+            document.getElementById('smallText').innerHTML = 'Example: 21 - 3 = 18';
+            break;
+
+        case 'page3':
+            document.getElementById('pText').innerHTML = '';
+            randomsymbols9 = symbols9[Math.floor(Math.random() * symbols9.length)];
+            for(let i = 0; i <= 99; i++) {
+                if (i % 9 === 0) {
+                    document.getElementById('pText').innerHTML += i + '-' + randomsybols9 + '<br';
+                
+                } else {
+                    var symbols = [''];
+                    let randomSymbols = symbols[Math.floor(Math.random() * symbols.length)];
+                }
+            }
+                document.getElementById('smallText').innerHTML = 'Find your new number and remember the symbol beside your number.';
+                document.getElementById('nextButton').innerHTML = 'Reveal';
+
+        case 'page4':
+            document.getElementById('nextButton').style.display = 'none';
+            document.getElementById('pText').innerHTML = randomsybols9;
+            document.getElementById('smallText').innerHTML = 'Your symbol is :<br><br>' + randomsymbols9;
             break;
 
 
-        case "pick":
-            bigtext.textContent = "Pick a number between 01-99";
-            next.style.visibility = 'visible';
-            next.textContent = "Next";
-            sT.textContent = "When you have picked your number hit 'Next'";
-            r.textContent = "Reset";
-            break;
-
-
-        case "add numbers":
-            bigtext.textContent = "Add both digits together to get a new number";
-            next.style.visibility = 'visible';
-            next.textContent = "Next";
-            sT.textContent = "Ex: 26, 2 + 6 = 8";
-            r.textContent = "Reset";
-            break;
-
-        
-        case "subtract numbers":
-            bigtext.textContent = "Now subtract your new number from the original number";
-            next.style.visibility = 'visible';
-            next.textContent = "Next";
-            sT.textContent = "Ex: 26 - 8 = 14<brk>";
-            r.textContent = "Reset";
-            break;
-
-
-
-        case "symbol":
-            bigtext.textContent = "Random Content";
-            next.style.visibility = 'visible';
-            next.textContent = "Reveal";
-            sT.textContent = "Find your new number<br> Take note of the symbol beside your number";
-            r.textContent = "Reset";
-
-
-        case "final":
-            bigtext.textContent = "Your symbol goes here";
-            next.style.visibility = 'hidden';
-            sT.textContent = "Your symbol is:"
-            r.textContent = "Reset";
-    }
+        }
 }
